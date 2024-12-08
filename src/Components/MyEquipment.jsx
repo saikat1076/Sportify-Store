@@ -108,9 +108,9 @@ const MyEquipment = () => {
                                         </div>
 
                                         <div className="card-actions mt-3 flex flex-row justify-around text-center">
-                                            <button className="btn btn-primary w-[30%] text-sm font-semibold">
+                                            <Link to={`/update-equipment/${item._id}`} className="btn btn-primary w-[30%] text-sm font-semibold">
                                                 Update
-                                            </button>
+                                            </Link>
                                             <button onClick={() => handleDelete(item._id)} className="btn btn-primary w-[30%] text-sm font-semibold">
                                                 Delete
                                             </button>

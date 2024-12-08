@@ -4,7 +4,7 @@ import { AiOutlineMail } from 'react-icons/ai';
 const Footer = () => {
   return (
     <footer className="bg-[#34A745] text-black py-12">
-      <div className="container mx-auto px-6">
+      <div className="mx-auto px-6">
         {/* Website Name, Copyright and Contact Info */}
         <div className="flex justify-between items-center mb-8">
           <div>

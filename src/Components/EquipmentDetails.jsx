@@ -24,7 +24,7 @@ const EquipmentDetails = () => {
                     <div className="hero-content p-2 flex-col lg:flex-row lg:gap-10">
                         <img
                             src={Image}
-                            className="max-w-xl h-[400px] lg:w-2/4 rounded-lg p-3 bg-gradient-to-r from-[#001F54] to-[#34C759]  shadow-2xl" />
+                            className="h-[400px] lg:w-2/4 sm: w-auto rounded-lg p-3 bg-gradient-to-r from-[#001F54] to-[#34C759]  shadow-2xl" />
                         <div>
                             <h1 className="text-5xl font-bold">{itemName}</h1>
                             <p className="btn btn-sm font-bold mt-3 bg-[#] w-1/3">{categoryName}</p>
