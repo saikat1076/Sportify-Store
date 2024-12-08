@@ -113,6 +113,19 @@ const Navbar = () => {
             >
              All Equipment 
             </NavLink>
+                    <NavLink
+              className={({ isActive }) =>
+                `font-bold text-sm ${
+                  isActive
+                  
+                  ? "rounded-md btn btn-sm bg-gradient-to-r from-green-500 to-lime-300 text-black"
+                  : "rounded-md btn btn-sm btn-outline border-none text-white"
+                }`
+              }
+              to="/my-equipment"
+            >
+             My Equipment 
+            </NavLink>
                 </ul>
             </div>
 

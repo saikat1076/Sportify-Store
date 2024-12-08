@@ -31,7 +31,7 @@ const EquipmentDetails = () => {
 
                             
                             <p className="text-xl font-semibold py-3">Description:<span className="text-lg font-Italic">{description}</span></p>
-                            <p className="font-bold text-xl text-blue-600 pb-2">Customize: with {customization}</p>
+                            <p className="font-bold text-xl text-blue-600 pb-2      ">Customize: with {customization}</p>
 
                             
                             <div className="rating items-center">

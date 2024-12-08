@@ -11,6 +11,7 @@ import EquipmentDetails from "../Components/EquipmentDetails";
 import AllEquipment from "../Components/AllEquipment";
 import ErrorPage from "../Pages/ErrorPage";
 import PrivateRoutes from "./PrivateRoutes";
+import MyEquipment from "../Components/MyEquipment";
 
 const Router = createBrowserRouter([
   {
@@ -23,15 +24,10 @@ const Router = createBrowserRouter([
         path: "/",
         element: <Home></Home>,
         children: [
-
-
-
           {
 
               path: '/',
-
               element: <EquipmentCards></EquipmentCards>,
-
               loader: () => fetch('https://a-sports-equipment-store.vercel.app/equipment')
 
           }
@@ -46,6 +42,11 @@ const Router = createBrowserRouter([
         path: "/all-equipment",
         element: <AllEquipment></AllEquipment>,
         loader: () => fetch("https://a-sports-equipment-store.vercel.app/equipment"), 
+      },
+      {
+        path: "/my-equipment",
+        element: <MyEquipment></MyEquipment>,
+        // loader: ({ params }) => fetch(`http://localhost:5000/equipment/email/${params.email}`)
       },
       {
         path: "/equipment/:id",
