@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDrmPbdfXlTUulLaGPRFdl47-oL5cEnBEw",
-  authDomain: "sportify-store-1f583.firebaseapp.com",
-  projectId: "sportify-store-1f583",
-  storageBucket: "sportify-store-1f583.firebasestorage.app",
-  messagingSenderId: "660869159617",
-  appId: "1:660869159617:web:69c28fbc41c8cc7b7b1240"
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId,
 };
 
 // Initialize Firebase
