@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import profilePic from "../assets/profile.jpg"
+import profilePic from "../assets/profile.jpg";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 
@@ -112,50 +112,34 @@ const Navbar = () => {
                         Add Equipment
                     </NavLink>
                     <NavLink
-              className={({ isActive }) =>
-                `font-bold text-sm ${
-                  isActive
-                  
-                  ? "rounded-md btn btn-sm bg-gradient-to-r from-green-500 to-lime-300 text-black"
-                  : "rounded-md btn btn-sm btn-outline border-none text-white"
-                }`
-              }
-              to="/all-equipment"
-            >
-             All Equipment 
-            </NavLink>
+                        className={({ isActive }) =>
+                            `font-bold text-sm ${isActive
+                                ? "rounded-md btn btn-sm bg-gradient-to-r from-green-500 to-lime-300 text-black"
+                                : "rounded-md btn btn-sm btn-outline border-none text-white"
+                            }`
+                        }
+                        to="/all-equipment"
+                    >
+                        All Equipment
+                    </NavLink>
                     <NavLink
-              className={({ isActive }) =>
-                `font-bold text-sm ${
-                  isActive
-                  
-                  ? "rounded-md btn btn-sm bg-gradient-to-r from-green-500 to-lime-300 text-black"
-                  : "rounded-md btn btn-sm btn-outline border-none text-white"
-                }`
-              }
-              to="/my-equipment"
-            >
-             My Equipment 
-            </NavLink>
+                        className={({ isActive }) =>
+                            `font-bold text-sm ${isActive
+                                ? "rounded-md btn btn-sm bg-gradient-to-r from-green-500 to-lime-300 text-black"
+                                : "rounded-md btn btn-sm btn-outline border-none text-white"
+                            }`
+                        }
+                        to="/my-equipment"
+                    >
+                        My Equipment
+                    </NavLink>
                 </ul>
             </div>
 
             {/* Navbar End */}
             <div className="navbar-end space-x-3">
-               
-
-
-
-
-
-
-
-
-
-
-
                 {user && user?.email ? (
-                    <div className="relative group">
+                    <div className="relative group flex flex-row">
                         {/* User Image */}
                         <img
                             src={user?.photoURL || profilePic}
@@ -166,21 +150,23 @@ const Navbar = () => {
                         <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 px-4 py-1 bg-gray-700 text-sm text-white rounded opacity-0 group-hover:opacity-100 transition-opacity">
                             {user?.displayName || "User"}
                         </div>
+                        {/* Logout Button */}
+                        <button
+                            onClick={logOut}
+                            className="btn btn-sm bg-[#211C6A] text-white text-sm ml-2"
+                        >
+                            Logout
+                        </button>
                     </div>
                 ) : (
-                    
-                    <Link to="/auth/login" className="btn btn-sm bg-[#211C6A] text-white text-sm">
-                        Login
-                    </Link>
-                )}
-
-                {user && user?.email && (
-                    <button
-                        onClick={logOut}
-                        className="btn btn-sm bg-[#211C6A] text-white text-sm"
-                    >
-                        Logout
-                    </button>
+                    <>
+                        <Link to="/auth/login" className="btn btn-sm bg-[#211C6A] text-white text-sm">
+                            Login
+                        </Link>
+                        <Link to="/auth/register" className="btn btn-sm bg-[#211C6A] text-white text-sm">
+                            Register
+                        </Link>
+                    </>
                 )}
             </div>
         </div>
