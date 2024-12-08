@@ -1,50 +1,69 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLoaderData, useParams } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 import { FaStar, FaGripLines } from 'react-icons/fa';
 import { MdDeliveryDining, MdEmail, MdPerson } from 'react-icons/md';
-import Swal from 'sweetalert2'
-const UpdateEquipment = () => {
-    const {id} = useParams();
-    const equipment = useLoaderData();
-    const { user } = useContext(AuthContext);
+import Swal from 'sweetalert2';
 
-    // Check if equipment data is loaded
-    if (!equipment) {
-        return <div>Loading...</div>;  // Show loading message until data is available
+const UpdateEquipment = () => {
+    const { id } = useParams();
+    const equipment = useLoaderData();  // Make sure the data is passed from the loader
+    const { user } = useContext(AuthContext);
+    const [equipmentData, setEquipmentData] = useState(null);
+
+    useEffect(() => {
+        if (equipment) {
+            setEquipmentData(equipment);
+        }
+    }, [equipment]);
+
+    // If equipment data is not loaded, show loading message
+    if (!equipmentData) {
+        return <div>Loading...</div>;
     }
 
-    const { _id, Image, itemName, processingTime, description, stockStatus, customization, rating, price, categoryName } = equipment;
+    const { _id, Image, itemName, processingTime, description, stockStatus, customization, rating, price, categoryName } = equipmentData;
 
     // Handle form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const form = e.target;
+    
         const updatedEquipment = {
+            _id: id,  // Include the ID of the equipment
             Image: form.Image.value,
             itemName: form.itemName.value,
             categoryName: form.categoryName.value,
             description: form.description.value,
-            price: form.price.value,
-            rating: form.rating.value,
+            price: parseFloat(form.price.value) || 0,
+            rating: parseFloat(form.rating.value) || 0,
             customization: form.customization.value,
             processingTime: form.processingTime.value,
-            stockStatus: form.stockStatus.value,
+            stockStatus: parseInt(form.stockStatus.value) || 0,
             email: form.email.value,
             userName: form.userName.value,
         };
-
-        // Send PUT request to update equipment
-        fetch(`https://a-sports-equipment-store.vercel.app/equipment/${_id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(updatedEquipment),
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.modifiedCount > 0) {
+    
+        // Validate rating
+        if (updatedEquipment.rating < 0 || updatedEquipment.rating > 5) {
+            return Swal.fire({
+                title: 'Invalid Rating',
+                text: 'Rating must be between 0 and 5.',
+                icon: 'warning',
+                confirmButtonText: 'Okay',
+            });
+        }
+    
+        try {
+            const response = await fetch(`https://a-sports-equipment-store.vercel.app/equipment/${_id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedEquipment),
+            });
+    
+            const result = await response.json();
+    
+            if (result.modifiedCount > 0) {
                 Swal.fire({
                     title: 'Success!',
                     text: 'Equipment updated successfully',
@@ -59,17 +78,16 @@ const UpdateEquipment = () => {
                     confirmButtonText: 'Okay',
                 });
             }
-        })
-        .catch(err => {
+        } catch (error) {
             Swal.fire({
                 title: 'Error!',
                 text: 'There was an error updating the equipment',
                 icon: 'error',
                 confirmButtonText: 'Okay',
-            });
-        });
-    };
-
+            });
+        }
+    };
+    
 
     return (
         <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-10">
