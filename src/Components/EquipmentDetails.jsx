@@ -20,8 +20,8 @@ const EquipmentDetails = () => {
                 <h2 className="text-6xl font-bold text-[#001f54] text-center py-7">See product Details</h2>
             </div>
                 
-                <div className="hero w-[80%] mx-auto bg-[#C0FFB3]">
-                    <div className="hero-content flex-col lg:flex-row gap-10">
+                <div className="hero mx-auto bg-[#C0FFB3]">
+                    <div className="hero-content p-2 flex-col lg:flex-row lg:gap-10">
                         <img
                             src={Image}
                             className="max-w-xl h-[400px] lg:w-2/4 rounded-lg p-3 bg-gradient-to-r from-[#001F54] to-[#34C759]  shadow-2xl" />
@@ -31,6 +31,7 @@ const EquipmentDetails = () => {
 
                             
                             <p className="text-xl font-semibold py-3">Description:<span className="text-lg font-Italic">{description}</span></p>
+                            <p className="font-bold text-xl text-blue-600 pb-2">Customize: with {customization}</p>
 
                             
                             <div className="rating items-center">
@@ -46,7 +47,7 @@ const EquipmentDetails = () => {
                                     defaultChecked />
                                 <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
                                 <div>
-                                    <button className="btn btn-outline text-red-500">{rating}</button>
+                                    <button className=" text-red-500 text-xl"> {rating}.0</button>
                                 </div>
                             
                             </div>

@@ -9,11 +9,15 @@ import Home from "../Pages/Home";
 import EquipmentCards from "../Components/EquipmentCards";
 import EquipmentDetails from "../Components/EquipmentDetails";
 import AllEquipment from "../Components/AllEquipment";
+import ErrorPage from "../Pages/ErrorPage";
+import PrivateRoutes from "./PrivateRoutes";
 
 const Router = createBrowserRouter([
   {
     path: "/",
     element: <Layouts></Layouts>,
+    errorElement: <ErrorPage></ErrorPage>,
+
     children: [
       {
         path: "/",
@@ -28,7 +32,7 @@ const Router = createBrowserRouter([
 
               element: <EquipmentCards></EquipmentCards>,
 
-              loader: () => fetch('http://localhost:5000/equipment')
+              loader: () => fetch('https://a-sports-equipment-store.vercel.app/equipment')
 
           }
 
@@ -36,18 +40,18 @@ const Router = createBrowserRouter([
       },
       {
         path: "/add-equipment",
-        element: <AddEquipment></AddEquipment>,
+        element: <PrivateRoutes><AddEquipment></AddEquipment></PrivateRoutes>
       },
       {
         path: "/all-equipment",
         element: <AllEquipment></AllEquipment>,
-        loader: () => fetch("http://localhost:5000/equipment"), 
+        loader: () => fetch("https://a-sports-equipment-store.vercel.app/equipment"), 
       },
       {
         path: "/equipment/:id",
-        element: <EquipmentDetails></EquipmentDetails>,
+        element: <PrivateRoutes><EquipmentDetails></EquipmentDetails></PrivateRoutes>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/equipment/${params.id}`),
+          fetch(`https://a-sports-equipment-store.vercel.app/equipment/${params.id}`),
       },
     ],
   },
@@ -56,11 +60,11 @@ const Router = createBrowserRouter([
     element: <AuthLayouts></AuthLayouts>,
     children: [
       {
-        path: "login",
+        path: "/auth/login",
         element: <Login></Login>,
       },
       {
-        path: "register",
+        path: "/auth/register",
         element: <Register></Register>,
       },
     ],
