@@ -43,7 +43,7 @@ const Router = createBrowserRouter([
         path: "/update-equipment/:id",
         element: <PrivateRoutes><UpdateEquipment></UpdateEquipment></PrivateRoutes>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/equipment/${params.id}`),
+          fetch(`https://a-sports-equipment-store.vercel.app/equipment/${params.id}`),
 
       },
       {

@@ -10,12 +10,13 @@ const MyEquipment = () => {
 
     useEffect(() => {
         if (user && user.email) {
-            fetch(`http://localhost:5000/equipment/email/${user.email}`)
+            fetch(`https://a-sports-equipment-store.vercel.app/equipment/email/${user.email}`)
                 .then(res => res.json())
                 .then(data => setEquipment(data))
                 .catch(err => console.error(err));
         }
     }, [user]);
+
     const handleDelete = id => {
         console.log(id);
         Swal.fire({
@@ -28,32 +29,32 @@ const MyEquipment = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-
-                fetch(`http://localhost:5000/equipment/${id}`, {
+                fetch(`https://a-sports-equipment-store.vercel.app/equipment/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())
                     .then(data => {
                         console.log(data);
                         if (data.deletedCount > 0) {
+                            // Remove the deleted item from the state immediately
+                            setEquipment(prevEquipment => prevEquipment.filter(item => item._id !== id));
+
                             Swal.fire({
                                 title: "Deleted!",
                                 text: "Your Equipment has been deleted.",
                                 icon: "success"
                             });
                         }
-
                     })
+                    .catch(err => console.error(err));
             }
         });
-
-
-    }
+    };
 
     return (
         <div className="p-6">
             <h1 className="text-2xl font-bold mb-4">My Equipment</h1>
-            <div className="grid grid-cols-1 lg:grid-cols-3 lg:  gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-4">
                 {equipment.length > 0 ? (
                     equipment.map(item => {
                         // Convert rating to a number, default to 0 if missing or invalid
@@ -108,7 +109,7 @@ const MyEquipment = () => {
                                         </div>
 
                                         <div className="card-actions mt-3 flex flex-row justify-around text-center">
-                                            <Link to={`/update-equipment/${item._id}`} className="btn btn-primary w-[30%] text-sm font-semibold">
+                                            <Link to={'/update-equipment/${item._id}'} className="btn btn-primary w-[30%] text-sm font-semibold">
                                                 Update
                                             </Link>
                                             <button onClick={() => handleDelete(item._id)} className="btn btn-primary w-[30%] text-sm font-semibold">
@@ -128,4 +129,4 @@ const MyEquipment = () => {
     );
 };
 
-export default MyEquipment;
+export default MyEquipment;

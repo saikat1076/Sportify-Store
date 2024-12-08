@@ -1,81 +1,80 @@
 import React, { useContext } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 import { FaStar, FaGripLines } from 'react-icons/fa';
 import { MdDeliveryDining, MdEmail, MdPerson } from 'react-icons/md';
 import Swal from 'sweetalert2'
-
 const UpdateEquipment = () => {
+    const {id} = useParams();
     const equipment = useLoaderData();
     const { user } = useContext(AuthContext);
 
+    // Check if equipment data is loaded
+    if (!equipment) {
+        return <div>Loading...</div>;  // Show loading message until data is available
+    }
 
+    const { _id, Image, itemName, processingTime, description, stockStatus, customization, rating, price, categoryName } = equipment;
+
+    // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
-        const Image = form.Image.value;
-        const itemName = form.itemName.value;
-        const categoryName = form.categoryName.value;
-        const description = form.description.value;
-        const price = form.price.value;
-        const rating = form.rating.value;
-        const customization = form.customization.value;
-        const processingTime = form.processingTime.value;
-        const stockStatus = form.stockStatus.value;
-        const email = form.email.value;
-        const userName = form.userName.value;
-    
-        const updateEquipment = {
-            Image,
-            itemName,
-            categoryName,
-            description,
-            price,
-            rating,
-            customization,
-            processingTime,
-            stockStatus,
-            email,
-            userName,
+        const updatedEquipment = {
+            Image: form.Image.value,
+            itemName: form.itemName.value,
+            categoryName: form.categoryName.value,
+            description: form.description.value,
+            price: form.price.value,
+            rating: form.rating.value,
+            customization: form.customization.value,
+            processingTime: form.processingTime.value,
+            stockStatus: form.stockStatus.value,
+            email: form.email.value,
+            userName: form.userName.value,
         };
-    
-        fetch(`http://localhost:5000/equipment/${_id}`, {
+
+        // Send PUT request to update equipment
+        fetch(`https://a-sports-equipment-store.vercel.app/equipment/${_id}`, {
             method: 'PUT',
             headers: {
-                'content-type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(updateEquipment)
+            body: JSON.stringify(updatedEquipment),
         })
-            .then(res => res.json())
-            .then(data => {
-                if (data.modifiedCount > 0) {
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Equipment updated successfully',
-                        icon: 'success',
-                        confirmButtonText: 'Cool'
-                    })
-                }
-            })
-            .catch(err => {
+        .then(res => res.json())
+        .then(data => {
+            if (data.modifiedCount > 0) {
                 Swal.fire({
-                    title: 'Error!',
-                    text: 'There was an error updating the equipment',
-                    icon: 'error',
-                    confirmButtonText: 'Okay'
-                })
+                    title: 'Success!',
+                    text: 'Equipment updated successfully',
+                    icon: 'success',
+                    confirmButtonText: 'Cool',
+                });
+            } else {
+                Swal.fire({
+                    title: 'No Changes Made',
+                    text: 'No updates were applied to the equipment.',
+                    icon: 'info',
+                    confirmButtonText: 'Okay',
+                });
+            }
+        })
+        .catch(err => {
+            Swal.fire({
+                title: 'Error!',
+                text: 'There was an error updating the equipment',
+                icon: 'error',
+                confirmButtonText: 'Okay',
             });
-    };
-    
-    const { _id, Image, itemName, processingTime, description, stockStatus, customization, rating, price, categoryName } = equipment;
+        });
+    };
+
 
     return (
-
         <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-10">
             <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Update Equipment</h1>
             <form onSubmit={handleSubmit} className="space-y-6">
-
-
                 <div className="flex justify-between gap-x-3">
                     {/* Image */}
                     <div className="w-full">
@@ -99,8 +98,6 @@ const UpdateEquipment = () => {
                             className="input input-bordered w-full"
                         />
                     </div>
-
-
                 </div>
 
                 {/* Description */}
@@ -201,8 +198,6 @@ const UpdateEquipment = () => {
                     </div>
                 </div>
 
-
-
                 <div className="flex justify-between gap-x-3">
                     {/* Read-only User Email */}
                     <div className="w-full">
@@ -211,7 +206,7 @@ const UpdateEquipment = () => {
                             <MdEmail className="text-blue-500" />
                             <input
                                 type="text"
-                                name='email'
+                                name="email"
                                 value={user?.email || "Name@gmail.com"}
                                 readOnly
                                 className="input input-disabled w-full"
@@ -226,7 +221,7 @@ const UpdateEquipment = () => {
                             <MdPerson className="text-purple-500" />
                             <input
                                 type="text"
-                                name='userName'
+                                name="userName"
                                 value={user?.displayName || "Name"}
                                 readOnly
                                 className="input input-disabled w-full"
