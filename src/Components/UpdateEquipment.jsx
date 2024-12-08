@@ -81,7 +81,7 @@ const UpdateEquipment = () => {
         } catch (error) {
             Swal.fire({
                 title: 'Error!',
-                text: 'There was an error updating the equipment',
+                text: 'There was an error update the equipment',
                 icon: 'error',
                 confirmButtonText: 'Okay',
             });
