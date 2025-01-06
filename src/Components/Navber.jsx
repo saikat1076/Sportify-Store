@@ -5,9 +5,62 @@ import { AuthContext } from "../Provider/AuthProvider";
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
+    const common = <>
+        <NavLink
+            className={({ isActive }) =>
+                `font-bold text-base ${isActive
+                    ? "text-[#71e1fe] border-b-2 border-[#71e1fe]" : "text-white"
+                }`
+            }
+            to="/"
+        >
+            Home
+        </NavLink>
+        {user && user?.email ? (<><NavLink
+            className={({ isActive }) =>
+                `font-bold text-base ${isActive
+                    ? "text-[#71e1fe] border-b-2 border-[#71e1fe]" : "text-white"
+                }`
+            }
+            to="/add-equipment"
+        >
+            Add Equipment
+        </NavLink>
+        <NavLink
+            className={({ isActive }) =>
+                `font-bold text-base ${isActive
+                    ? "text-[#71e1fe] border-b-2 border-[#71e1fe]" : "text-white"
+                }`
+            }
+            to="/my-equipment"
+        >
+            My Equipment
+        </NavLink></>) : (<NavLink
+            className={({ isActive }) =>
+                `font-bold text-base ${isActive
+                    ? "text-[#71e1fe] border-b-2 border-[#71e1fe]" : "text-white"
+                }`
+            }
+            to="/TermsAndConditions"
+        >
+            TermsAndConditions
+        </NavLink>)}
+        
+        <NavLink
+            className={({ isActive }) =>
+                `font-bold text-base ${isActive
+                    ? "text-[#71e1fe] border-b-2 border-[#71e1fe]" : "text-white"
+                }`
+            }
+            to="/all-equipment"
+        >
+            All Equipment
+        </NavLink>
+      
+    </>
 
     return (
-        <div className="navbar sticky top-0 z-50 backdrop-blur-lg lg:px-5 glass shadow-lg bg-[#34c759] place-items-center">
+        <div className="navbar sticky top-0 z-50 backdrop-blur-lg lg:px-5 bg-gray-800 place-items-center">
             {/* Navbar Start */}
             <div className="navbar-start">
                 <div className="dropdown">
@@ -35,104 +88,18 @@ const Navbar = () => {
                         tabIndex="0"
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                     >
-                        <NavLink
-                            className={({ isActive }) =>
-                                `font-bold text-lg ${isActive
-                                    ? "rounded-md btn bg-gradient-to-r from-green-500 to-lime-300"
-                                    : "rounded-md btn btn-outline border-none"
-                                }`
-                            }
-                            to="/"
-                        >
-                            Home
-                        </NavLink>
-                        <NavLink
-                            className={({ isActive }) =>
-                                `font-bold text-lg ${isActive
-                                    ? "rounded-md btn bg-gradient-to-r from-green-500 to-lime-300"
-                                    : "rounded-md btn btn-outline border-none"
-                                }`
-                            }
-                            to="/add-equipment"
-                        >
-                            Add Equipment
-                        </NavLink>
-                        <NavLink
-                            className={({ isActive }) =>
-                                `font-bold text-lg ${isActive
-                                    ? "rounded-md btn bg-gradient-to-r from-green-500 to-lime-300"
-                                    : "rounded-md btn btn-outline border-none"
-                                }`
-                            }
-                            to="/all-equipment"
-                        >
-                            All Equipment
-                        </NavLink>
-                        <NavLink
-                            className={({ isActive }) =>
-                                `font-bold text-lg ${isActive
-                                    ? "rounded-md btn bg-gradient-to-r from-green-500 to-lime-300"
-                                    : "rounded-md btn btn-outline border-none"
-                                }`
-                            }
-                            to="/my-equipment"
-                        >
-                            My Equipment
-                        </NavLink>
+                        {common}
                     </ul>
                 </div>
                 <Link to="/" className="text-white font-serif  text-xl">
-                    <span className="text-[#26355D] font-semibold">Sport</span>ify Shop
+                    <span className="text-[#71e1fe] font-semibold">Sport</span>ify Shop
                 </Link>
             </div>
 
             {/* Navbar Center */}
             <div className="navbar-center hidden lg:flex space-x-3">
                 <ul className="menu menu-horizontal px-1 space-x-3">
-                    <NavLink
-                        className={({ isActive }) =>
-                            `font-bold text-sm ${isActive
-                                ? "rounded-md btn btn-sm bg-gradient-to-r from-green-500 to-lime-300 text-black"
-                                : "rounded-md btn btn-sm btn-outline border-none text-white"
-                            }`
-                        }
-                        to="/"
-                    >
-                        Home
-                    </NavLink>
-                    <NavLink
-                        className={({ isActive }) =>
-                            `font-bold text-sm ${isActive
-                                ? "rounded-md btn btn-sm bg-gradient-to-r from-green-500 to-lime-300 text-black"
-                                : "rounded-md btn btn-sm btn-outline border-none text-white"
-                            }`
-                        }
-                        to="/add-equipment"
-                    >
-                        Add Equipment
-                    </NavLink>
-                    <NavLink
-                        className={({ isActive }) =>
-                            `font-bold text-sm ${isActive
-                                ? "rounded-md btn btn-sm bg-gradient-to-r from-green-500 to-lime-300 text-black"
-                                : "rounded-md btn btn-sm btn-outline border-none text-white"
-                            }`
-                        }
-                        to="/all-equipment"
-                    >
-                        All Equipment
-                    </NavLink>
-                    <NavLink
-                        className={({ isActive }) =>
-                            `font-bold text-sm ${isActive
-                                ? "rounded-md btn btn-sm bg-gradient-to-r from-green-500 to-lime-300 text-black"
-                                : "rounded-md btn btn-sm btn-outline border-none text-white"
-                            }`
-                        }
-                        to="/my-equipment"
-                    >
-                        My Equipment
-                    </NavLink>
+                    {common}
                 </ul>
             </div>
 
@@ -153,17 +120,17 @@ const Navbar = () => {
                         {/* Logout Button */}
                         <button
                             onClick={logOut}
-                            className="btn btn-sm bg-[#211C6A] text-white text-sm ml-2"
+                            className="btn btn-sm bg-[#87d6e1] text-white text-sm ml-2"
                         >
                             Logout
                         </button>
                     </div>
                 ) : (
                     <>
-                        <Link to="/auth/login" className="btn btn-sm bg-[#211C6A] text-white text-sm">
+                        <Link to="/auth/login" className="btn btn-sm bg-[#87d6e1] text-white text-sm">
                             Login
                         </Link>
-                        <Link to="/auth/register" className="btn btn-sm bg-[#211C6A] text-white text-sm">
+                        <Link to="/auth/register" className="btn btn-sm bg-[#87d6e1] text-white text-sm">
                             Register
                         </Link>
                     </>
@@ -173,4 +140,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+export default Navbar;

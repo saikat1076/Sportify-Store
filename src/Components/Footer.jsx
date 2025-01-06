@@ -3,7 +3,7 @@ import { AiOutlineMail } from 'react-icons/ai';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#34A745] text-black py-12">
+    <footer className="bg-[#1D2D50] text-white py-12">
       <div className="mx-auto px-6">
         {/* Website Name, Copyright and Contact Info */}
         <div className="flex justify-between items-center mb-8">
@@ -25,20 +25,20 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-lg">Quick Links</h3>
             <ul className="mt-4 space-y-2 text-sm">
-              <li><a href="/shop" className="hover:text-white transition-colors">Shop</a></li>
-              <li><a href="/about" className="hover:text-white transition-colors">About Us</a></li>
-              <li><a href="/faq" className="hover:text-white transition-colors">FAQ</a></li>
-              <li><a href="/contact" className="hover:text-white transition-colors">Contact</a></li>
+              <li><a href="/shop" className="hover:text-[#71e1fe] transition-colors">Shop</a></li>
+              <li><a href="/about" className="hover:text-[#71e1fe] transition-colors">About Us</a></li>
+              <li><a href="/faq" className="hover:text-[#71e1fe] transition-colors">FAQ</a></li>
+              <li><a href="/contact" className="hover:text-[#71e1fe] transition-colors">Contact</a></li>
             </ul>
           </div>
 
           <div>
             <h3 className="font-semibold text-lg">Customer Service</h3>
             <ul className="mt-4 space-y-2 text-sm">
-              <li><a href="/shipping" className="hover:text-white transition-colors">Shipping Info</a></li>
-              <li><a href="/returns" className="hover:text-white transition-colors">Returns & Exchanges</a></li>
-              <li><a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="/terms" className="hover:text-white transition-colors">Terms of Service</a></li>
+              <li><a href="/shipping" className="hover:text-[#71e1fe] transition-colors">Shipping Info</a></li>
+              <li><a href="/returns" className="hover:text-[#71e1fe] transition-colors">Returns & Exchanges</a></li>
+              <li><a href="/privacy" className="hover:text-[#71e1fe] transition-colors">Privacy Policy</a></li>
+              <li><a href="/terms" className="hover:text-[#71e1fe] transition-colors">Terms of Service</a></li>
             </ul>
           </div>
 
@@ -46,16 +46,16 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-lg">Follow Us</h3>
             <div className="mt-4 flex gap-6">
-              <a href="https://www.facebook.com" className="text-xl hover:text-white transition-colors">
+              <a href="https://www.facebook.com" className="text-xl hover:text-[#71e1fe] transition-colors">
                 <FaFacebookF />
               </a>
-              <a href="https://www.twitter.com" className="text-xl hover:text-white transition-colors">
+              <a href="https://www.twitter.com" className="text-xl hover:text-[#71e1fe] transition-colors">
                 <FaTwitter />
               </a>
-              <a href="https://www.instagram.com" className="text-xl hover:text-white transition-colors">
+              <a href="https://www.instagram.com" className="text-xl hover:text-[#71e1fe] transition-colors">
                 <FaInstagram />
               </a>
-              <a href="https://www.linkedin.com" className="text-xl hover:text-white transition-colors">
+              <a href="https://www.linkedin.com" className="text-xl hover:text-[#71e1fe] transition-colors">
                 <FaLinkedinIn />
               </a>
             </div>
@@ -66,8 +66,15 @@ const Footer = () => {
             <h3 className="font-semibold text-lg">Subscribe to Our Newsletter</h3>
             <p className="text-sm mt-2">Get the latest updates and special offers.</p>
             <form className="mt-4">
-              <input type="email" placeholder="Enter your email" className="p-2 w-full rounded-lg text-gray-800" />
-              <button type="submit" className="mt-2 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="p-2 w-full rounded-lg text-gray-800"
+              />
+              <button
+                type="submit"
+                className="mt-2 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg"
+              >
                 Subscribe
               </button>
             </form>

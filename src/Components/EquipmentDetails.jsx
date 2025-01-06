@@ -1,4 +1,5 @@
 import { useLoaderData, useParams } from "react-router-dom";
+import { Rotate } from 'react-awesome-reveal'; 
 
 const EquipmentDetails = () => {
     const { _id } = useParams();
@@ -26,11 +27,12 @@ const EquipmentDetails = () => {
                             src={Image}
                             className="h-[400px] lg:w-2/4 sm: w-auto rounded-lg p-3 bg-gradient-to-r from-[#001F54] to-[#34C759]  shadow-2xl" />
                         <div>
-                            <h1 className="text-5xl font-bold">{itemName}</h1>
-                            <p className="btn btn-sm font-bold mt-3 bg-[#] w-1/3">{categoryName}</p>
+                            <h1 className="text-5xl pb-2 font-bold">{itemName}</h1>
+                            
 
                             
-                            <p className="text-xl font-semibold py-3">Description:<span className="text-lg font-Italic">{description}</span></p>
+                            <p className="text-xl font-semibold py-3">Description:
+                                <span className="text-lg font-Italic"> {description}</span></p>
                             <p className="font-bold text-xl text-blue-600 pb-2      ">Customize: with {customization}</p>
 
                             
@@ -47,7 +49,7 @@ const EquipmentDetails = () => {
                                     defaultChecked />
                                 <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
                                 <div>
-                                    <button className=" text-red-500 text-xl"> {rating}.0</button>
+                                    <button className=" text-red-500 text-xl"> {rating}</button>
                                 </div>
                             
                             </div>
@@ -58,7 +60,25 @@ const EquipmentDetails = () => {
                         >
                             {stockStatus} stocks left
                         </p>
-                        <button  className="btn btn-primary w-full text-sm font-semibold">Buy Now</button>
+                        <h1 className="font-bold text-2xl">Seller</h1>
+                        <div className="flex p-1 gap-4">
+
+                                            <div className="flex items-center space-x-2">
+                                                <img
+                                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWeI_rU7enS60mt1Z6swQ_G2pNW-S9ozXd4g&s"
+                                                    alt="User avatar"
+                                                    className="w-8 h-8 rounded-full border border-gray-300"
+                                                />
+                                                <p className="text-md font-medium text-gray-700">{userName} Fashions</p>
+                                            </div>
+                                            <div className="text-orange-600 btn btn-sm btn-outline">Follow</div>
+                                        </div>
+                        
+                                        <Rotate duration={1500} delay={300} triggerOnce>
+                <p className="bg-blue-500 text-white text-lg font-semibold w-full text-center px-6 py-2 rounded-md duration-300">
+                  Buy Now
+                </p>
+            </Rotate>
                         </div>
                                     
                     </div>

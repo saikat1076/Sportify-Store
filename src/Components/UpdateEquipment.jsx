@@ -1,34 +1,45 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useLoaderData, useParams } from 'react-router-dom';
-import { AuthContext } from '../Provider/AuthProvider';
-import { FaStar, FaGripLines } from 'react-icons/fa';
-import { MdDeliveryDining, MdEmail, MdPerson } from 'react-icons/md';
-import Swal from 'sweetalert2';
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { FaGripLines } from 'react-icons/fa';
+import { MdEmail, MdPerson } from 'react-icons/md';
+import axios from "axios";
+import Swal from "sweetalert2";
+import { AuthContext } from "../Provider/AuthProvider";
+import { FaStar } from 'react-icons/fa';
+import { MdDeliveryDining } from 'react-icons/md';
 
 const UpdateEquipment = () => {
-    const { id } = useParams();
-    const equipment = useLoaderData();  // Make sure the data is passed from the loader
     const { user } = useContext(AuthContext);
-    const [equipmentData, setEquipmentData] = useState(null);
+    const { id } = useParams();
+    const [equipment, setEquipment] = useState({});
 
     useEffect(() => {
-        if (equipment) {
-            setEquipmentData(equipment);
-        }
-    }, [equipment]);
+        const fetchEquipment = async () => {
+            try {
+                const { data } = await axios.get(`https://a-sports-equipment-store.vercel.app/equipment/${id}`);
+                console.log("Fetched equipment data:", data);  // Log the fetched data
+                setEquipment(data);
+            } catch (error) {
+                console.error("Error fetching equipment:", error);
+                Swal.fire("Error", "Failed to fetch equipment. Please try again later.", "error");
+            }
+        };
+        fetchEquipment();
+    }, [id]);
 
-    // If equipment data is not loaded, show loading message
-    if (!equipmentData) {
-        return <div>Loading...</div>;
-    }
+    // Handle input changes to update the equipment state
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setEquipment((prevEquipment) => ({
+            ...prevEquipment,
+            [name]: value,
+        }));
+    };
 
-    const { _id, Image, itemName, processingTime, description, stockStatus, customization, rating, price, categoryName } = equipmentData;
-
-    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         const form = e.target;
-    
+
         const updatedEquipment = {
             _id: id,  // Include the ID of the equipment
             Image: form.Image.value,
@@ -43,51 +54,15 @@ const UpdateEquipment = () => {
             email: form.email.value,
             userName: form.userName.value,
         };
-    
-        // Validate rating
-        if (updatedEquipment.rating < 0 || updatedEquipment.rating > 5) {
-            return Swal.fire({
-                title: 'Invalid Rating',
-                text: 'Rating must be between 0 and 5.',
-                icon: 'warning',
-                confirmButtonText: 'Okay',
-            });
-        }
-    
+
         try {
-            const response = await fetch(`https://a-sports-equipment-store.vercel.app/equipment/${_id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updatedEquipment),
-            });
-    
-            const result = await response.json();
-    
-            if (result.modifiedCount > 0) {
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Equipment updated successfully',
-                    icon: 'success',
-                    confirmButtonText: 'Cool',
-                });
-            } else {
-                Swal.fire({
-                    title: 'No Changes Made',
-                    text: 'No updates were applied to the equipment.',
-                    icon: 'info',
-                    confirmButtonText: 'Okay',
-                });
-            }
+            await axios.put(`https://a-sports-equipment-store.vercel.app/equipment/${id}`, updatedEquipment);
+            Swal.fire("Success", "Equipment updated successfully!", "success");
         } catch (error) {
-            Swal.fire({
-                title: 'Error!',
-                text: 'There was an error update the equipment',
-                icon: 'error',
-                confirmButtonText: 'Okay',
-            });
-        }
+            console.error("Error updating equipment:", error);  // Log error for debugging
+            Swal.fire("Error", "Failed to update equipment.", "error");
+        }
     };
-    
 
     return (
         <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-10">
@@ -100,7 +75,8 @@ const UpdateEquipment = () => {
                         <input
                             type="text"
                             name="Image"
-                            defaultValue={Image}
+                            defaultValue={equipment.Image || ''}
+                            onChange={handleChange}
                             placeholder="Image URL"
                             className="input input-bordered w-full"
                         />
@@ -111,7 +87,8 @@ const UpdateEquipment = () => {
                         <input
                             type="text"
                             name="itemName"
-                            defaultValue={itemName}
+                            defaultValue={equipment.itemName || ''}
+                            onChange={handleChange}
                             placeholder="Enter item name"
                             className="input input-bordered w-full"
                         />
@@ -123,7 +100,8 @@ const UpdateEquipment = () => {
                     <label className="block text-sm font-medium text-gray-700">Description</label>
                     <textarea
                         name="description"
-                        defaultValue={description}
+                        defaultValue={equipment.description || ''}
+                        onChange={handleChange}
                         placeholder="Enter equipment description"
                         className="textarea textarea-bordered w-full"
                     />
@@ -136,7 +114,8 @@ const UpdateEquipment = () => {
                         <input
                             type="text"
                             name="categoryName"
-                            defaultValue={categoryName}
+                            defaultValue={equipment.categoryName || ''}
+                            onChange={handleChange}
                             placeholder="Enter category"
                             className="input input-bordered w-full"
                         />
@@ -148,7 +127,8 @@ const UpdateEquipment = () => {
                         <input
                             type="number"
                             name="price"
-                            defaultValue={price}
+                            defaultValue={equipment.price || 0}
+                            onChange={handleChange}
                             placeholder="Enter price"
                             className="input input-bordered w-full"
                         />
@@ -164,7 +144,8 @@ const UpdateEquipment = () => {
                             <input
                                 type="number"
                                 name="rating"
-                                defaultValue={rating}
+                                defaultValue={equipment.rating || 0}
+                                onChange={handleChange}
                                 placeholder="Rate out of 5"
                                 className="input input-bordered w-full"
                             />
@@ -179,7 +160,8 @@ const UpdateEquipment = () => {
                             <input
                                 type="text"
                                 name="customization"
-                                defaultValue={customization}
+                                defaultValue={equipment.customization || ''}
+                                onChange={handleChange}
                                 placeholder="e.g., bat with extra grip"
                                 className="input input-bordered w-full"
                             />
@@ -196,7 +178,8 @@ const UpdateEquipment = () => {
                             <input
                                 type="text"
                                 name="processingTime"
-                                defaultValue={processingTime}
+                                defaultValue={equipment.processingTime || ''}
+                                onChange={handleChange}
                                 placeholder="e.g., 3-5 days"
                                 className="input input-bordered w-full"
                             />
@@ -209,7 +192,8 @@ const UpdateEquipment = () => {
                         <input
                             type="number"
                             name="stockStatus"
-                            defaultValue={stockStatus}
+                            defaultValue={equipment.stockStatus || 0}
+                            onChange={handleChange}
                             placeholder="Available quantity"
                             className="input input-bordered w-full"
                         />
@@ -250,7 +234,9 @@ const UpdateEquipment = () => {
 
                 {/* Submit Button */}
                 <div className="text-center">
-                    <button className="btn btn-primary w-full">Update</button>
+                    <button type="submit" className="btn btn-primary w-full">
+                        Submit
+                    </button>
                 </div>
             </form>
         </div>

@@ -13,6 +13,7 @@ import ErrorPage from "../Pages/ErrorPage";
 import PrivateRoutes from "./PrivateRoutes";
 import MyEquipment from "../Components/MyEquipment";
 import UpdateEquipment from "../Components/UpdateEquipment";
+import TermsAndConditions from "../Pages/TermsAndConditions";
 
 const Router = createBrowserRouter([
   {
@@ -40,10 +41,13 @@ const Router = createBrowserRouter([
         element: <PrivateRoutes><AddEquipment></AddEquipment></PrivateRoutes>
       },
       {
+        path: "/TermsAndConditions",
+        element: <TermsAndConditions></TermsAndConditions>
+      },
+      {
         path: "/update-equipment/:id",
         element: <PrivateRoutes><UpdateEquipment></UpdateEquipment></PrivateRoutes>,
-        loader: ({ params }) =>
-          fetch(`https://a-sports-equipment-store.vercel.app/equipment/${params.id}`),
+        
 
       },
       {
@@ -57,7 +61,7 @@ const Router = createBrowserRouter([
       },
       {
         path: "/equipment/:id",
-        element: <PrivateRoutes><EquipmentDetails></EquipmentDetails></PrivateRoutes>,
+        element:<EquipmentDetails></EquipmentDetails>,
         loader: ({ params }) =>
           fetch(`https://a-sports-equipment-store.vercel.app/equipment/${params.id}`),
       },
