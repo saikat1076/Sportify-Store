@@ -66,7 +66,7 @@ const Navbar = () => {
                 <div className="dropdown">
                     <button
                         tabIndex="0"
-                        className="btn btn-ghost lg:hidden"
+                        className="btn bg-white lg:hidden"
                         aria-label="Toggle Navigation"
                     >
                         <svg
@@ -86,7 +86,7 @@ const Navbar = () => {
                     </button>
                     <ul
                         tabIndex="0"
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                        className="menu menu-sm dropdown-content  bg-gray-800 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                     >
                         {common}
                     </ul>
